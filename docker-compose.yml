@@ -1,0 +1,22 @@
+version: '3'
+services:
+        notebook:
+          image: jupyter/datascience-notebook:latest
+          container_name: 'notebook_anseqda'
+          extra_hosts:
+            - "host.docker.internal:host-gateway" 
+          volumes:
+            - ./:/home/jovyan/work
+          ports:
+            - '8888:8888'
+
+        rstudio:
+          build:
+            dockerfile: dockerfiles/r/Dockerfile
+          container_name: 'rstudio_anseqda'
+          ports:
+            - '8787:8787'
+          environment:
+            DISABLE_AUTH: true
+          volumes:
+            - ./:/home/rstudio/workspace
